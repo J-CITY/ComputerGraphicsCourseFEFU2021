@@ -14,19 +14,19 @@
 
 static int e3() {
 	sf::ContextSettings settings;
-	settings.depthBits = 24; // количество битов буффера глубины
-	settings.stencilBits = 8; //количество битов буфера трафарета, используется с буфером глубины для ограничения области рендеринга
+	settings.depthBits = 24; // РєРѕР»РёС‡РµСЃС‚РІРѕ Р±РёС‚РѕРІ Р±СѓС„С„РµСЂР° РіР»СѓР±РёРЅС‹
+	settings.stencilBits = 8; //РєРѕР»РёС‡РµСЃС‚РІРѕ Р±РёС‚РѕРІ Р±СѓС„РµСЂР° С‚СЂР°С„Р°СЂРµС‚Р°, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ СЃ Р±СѓС„РµСЂРѕРј РіР»СѓР±РёРЅС‹ РґР»СЏ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ РѕР±Р»Р°СЃС‚Рё СЂРµРЅРґРµСЂРёРЅРіР°
 	settings.majorVersion = 4;
 	settings.minorVersion = 3;
 	settings.attributeFlags = sf::ContextSettings::Core;
 
-	//sf::VideoMode(ширина, высота, кол-во бидля для цвета на 1 пиксель)
+	//sf::VideoMode(С€РёСЂРёРЅР°, РІС‹СЃРѕС‚Р°, РєРѕР»-РІРѕ Р±РёРґР»СЏ РґР»СЏ С†РІРµС‚Р° РЅР° 1 РїРёРєСЃРµР»СЊ)
 	sf::Window window(sf::VideoMode(800, 600, 32), "First Window",
 		sf::Style::Titlebar | sf::Style::Close);
 
-	glewExperimental = GL_TRUE; // включить все современные функции ogl
+	glewExperimental = GL_TRUE; // РІРєР»СЋС‡РёС‚СЊ РІСЃРµ СЃРѕРІСЂРµРјРµРЅРЅС‹Рµ С„СѓРЅРєС†РёРё ogl
 
-	if (GLEW_OK != glewInit()) { // включить glew
+	if (GLEW_OK != glewInit()) { // РІРєР»СЋС‡РёС‚СЊ glew
 		std::cout << "Error:: glew not init =(" << std::endl;
 		return -1;
 	}
@@ -36,33 +36,33 @@ static int e3() {
 
 	float vertices [] = {
 		//x      y     z      u     v
-		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, // левая нижняя
-		-0.5f, 0.5f, 0.0f,   0.0f, 1.0f,// левая верхняя
-		 0.5f, 0.5f, 0.0f,   1.0f, 1.0f,// правая верхняя
-		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f // правая нижняя
+		-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, // Р»РµРІР°СЏ РЅРёР¶РЅСЏСЏ
+		-0.5f, 0.5f, 0.0f,   0.0f, 1.0f,// Р»РµРІР°СЏ РІРµСЂС…РЅСЏСЏ
+		 0.5f, 0.5f, 0.0f,   1.0f, 1.0f,// РїСЂР°РІР°СЏ РІРµСЂС…РЅСЏСЏ
+		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f // РїСЂР°РІР°СЏ РЅРёР¶РЅСЏСЏ
 	};
 
-	//EBO позволит использовать одни и те же вершины в разных треугольниках
+	//EBO РїРѕР·РІРѕР»РёС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕРґРЅРё Рё С‚Рµ Р¶Рµ РІРµСЂС€РёРЅС‹ РІ СЂР°Р·РЅС‹С… С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°С…
 	unsigned int indices [] = {
-		0, 1, 3, // первый треугольник
-		1, 2, 3  // второй треугольник
+		0, 1, 3, // РїРµСЂРІС‹Р№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
+		1, 2, 3  // РІС‚РѕСЂРѕР№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
 	};
 
 	unsigned int VBO, VAO, EBO;
-	glGenVertexArrays(1, &VAO); // сгенерили id для массивов вершин (у нас это один id)
-	glBindVertexArray(VAO); // и связали массив с opengl
+	glGenVertexArrays(1, &VAO); // СЃРіРµРЅРµСЂРёР»Рё id РґР»СЏ РјР°СЃСЃРёРІРѕРІ РІРµСЂС€РёРЅ (Сѓ РЅР°СЃ СЌС‚Рѕ РѕРґРёРЅ id)
+	glBindVertexArray(VAO); // Рё СЃРІСЏР·Р°Р»Рё РјР°СЃСЃРёРІ СЃ opengl
 
-	glGenBuffers(1, &VBO); // сгенерили буфер данных размером 1
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);// и связали буфер с opengl
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // прокинули наш масив вершин в opengl
+	glGenBuffers(1, &VBO); // СЃРіРµРЅРµСЂРёР»Рё Р±СѓС„РµСЂ РґР°РЅРЅС‹С… СЂР°Р·РјРµСЂРѕРј 1
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);// Рё СЃРІСЏР·Р°Р»Рё Р±СѓС„РµСЂ СЃ opengl
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // РїСЂРѕРєРёРЅСѓР»Рё РЅР°С€ РјР°СЃРёРІ РІРµСЂС€РёРЅ РІ opengl
 
-	//Создали и связали EBO
+	//РЎРѕР·РґР°Р»Рё Рё СЃРІСЏР·Р°Р»Рё EBO
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0); // прописали параметры для объекта
-	glEnableVertexAttribArray(0); //тк layout у позиции 0
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0); // РїСЂРѕРїРёСЃР°Р»Рё РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РѕР±СЉРµРєС‚Р°
+	glEnableVertexAttribArray(0); //С‚Рє layout Сѓ РїРѕР·РёС†РёРё 0
 
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
@@ -71,26 +71,26 @@ static int e3() {
 	glBindVertexArray(0);
 
 
-	// Загрузка и создание текстуры
+	// Р—Р°РіСЂСѓР·РєР° Рё СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹
 	unsigned int texture;
 	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture); // все последующие GL_TEXTURE_2D-операции теперь будут влиять на данный текстурный объект
+	glBindTexture(GL_TEXTURE_2D, texture); // РІСЃРµ РїРѕСЃР»РµРґСѓСЋС‰РёРµ GL_TEXTURE_2D-РѕРїРµСЂР°С†РёРё С‚РµРїРµСЂСЊ Р±СѓРґСѓС‚ РІР»РёСЏС‚СЊ РЅР° РґР°РЅРЅС‹Р№ С‚РµРєСЃС‚СѓСЂРЅС‹Р№ РѕР±СЉРµРєС‚
 
-	// Установка параметров наложения текстуры
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // установка метода наложения текстуры GL_REPEAT (стандартный метод наложения)
+	// РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ РЅР°Р»РѕР¶РµРЅРёСЏ С‚РµРєСЃС‚СѓСЂС‹
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // СѓСЃС‚Р°РЅРѕРІРєР° РјРµС‚РѕРґР° РЅР°Р»РѕР¶РµРЅРёСЏ С‚РµРєСЃС‚СѓСЂС‹ GL_REPEAT (СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РјРµС‚РѕРґ РЅР°Р»РѕР¶РµРЅРёСЏ)
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// Установка параметров фильтрации текстуры
+	// РЈСЃС‚Р°РЅРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ С„РёР»СЊС‚СЂР°С†РёРё С‚РµРєСЃС‚СѓСЂС‹
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	// Загрузка изображения, создание текстуры и генерирование мипмап-уровней
+	// Р—Р°РіСЂСѓР·РєР° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ, СЃРѕР·РґР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ Рё РіРµРЅРµСЂРёСЂРѕРІР°РЅРёРµ РјРёРїРјР°Рї-СѓСЂРѕРІРЅРµР№
 	int width, height, nrChannels;
 	/*
-	 * По дефолту текстура перевернута вверх ногами.
-	 * Это происходит потому, что OpenGL ожидает, что координата 0.0 на оси Y будет
-	 * находиться в нижней части изображения, но изображения обычно имеют 0.0 в верхней
-	 * части оси Y. stbi_set_flip_vertically_on_load исправит это!
+	 * РџРѕ РґРµС„РѕР»С‚Сѓ С‚РµРєСЃС‚СѓСЂР° РїРµСЂРµРІРµСЂРЅСѓС‚Р° РІРІРµСЂС… РЅРѕРіР°РјРё.
+	 * Р­С‚Рѕ РїСЂРѕРёСЃС…РѕРґРёС‚ РїРѕС‚РѕРјСѓ, С‡С‚Рѕ OpenGL РѕР¶РёРґР°РµС‚, С‡С‚Рѕ РєРѕРѕСЂРґРёРЅР°С‚Р° 0.0 РЅР° РѕСЃРё Y Р±СѓРґРµС‚
+	 * РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РЅРёР¶РЅРµР№ С‡Р°СЃС‚Рё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ, РЅРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РѕР±С‹С‡РЅРѕ РёРјРµСЋС‚ 0.0 РІ РІРµСЂС…РЅРµР№
+	 * С‡Р°СЃС‚Рё РѕСЃРё Y. stbi_set_flip_vertically_on_load РёСЃРїСЂР°РІРёС‚ СЌС‚Рѕ!
 	 */
 	stbi_set_flip_vertically_on_load(true);
 
@@ -104,13 +104,13 @@ static int e3() {
 	}
 	stbi_image_free(data);
 	
-	// цыкл рендера
+	// С†С‹РєР» СЂРµРЅРґРµСЂР°
 	bool isGo = true;
 	while (isGo) {
 
-		// обработка ивентов от SFML (тут и мышь и клавиши обрабатываются)
+		// РѕР±СЂР°Р±РѕС‚РєР° РёРІРµРЅС‚РѕРІ РѕС‚ SFML (С‚СѓС‚ Рё РјС‹С€СЊ Рё РєР»Р°РІРёС€Рё РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‚СЃСЏ)
 		sf::Event windowEvent;
-		while (window.pollEvent(windowEvent)) { // обработка ивентов
+		while (window.pollEvent(windowEvent)) { // РѕР±СЂР°Р±РѕС‚РєР° РёРІРµРЅС‚РѕРІ
 			switch (windowEvent.type) {
 			case sf::Event::Closed:
 				isGo = false;
@@ -120,16 +120,16 @@ static int e3() {
 			}
 		}
 
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //задали цвет отчистки
-		glClear(GL_COLOR_BUFFER_BIT);                      //отчистка экрана
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f); //Р·Р°РґР°Р»Рё С†РІРµС‚ РѕС‚С‡РёСЃС‚РєРё
+		glClear(GL_COLOR_BUFFER_BIT);                      //РѕС‚С‡РёСЃС‚РєР° СЌРєСЂР°РЅР°
 
-		glBindTexture(GL_TEXTURE_2D, texture); //связали текстуру
+		glBindTexture(GL_TEXTURE_2D, texture); //СЃРІСЏР·Р°Р»Рё С‚РµРєСЃС‚СѓСЂСѓ
 		
-		glUseProgram(shaderProgram); // установили нужную шейдерную программу
-		glBindVertexArray(VAO);      // установили нужный массив для рендеринга
-		//glDrawArrays(GL_TRIANGLES, 0, 6); //отрисовали
+		glUseProgram(shaderProgram); // СѓСЃС‚Р°РЅРѕРІРёР»Рё РЅСѓР¶РЅСѓСЋ С€РµР№РґРµСЂРЅСѓСЋ РїСЂРѕРіСЂР°РјРјСѓ
+		glBindVertexArray(VAO);      // СѓСЃС‚Р°РЅРѕРІРёР»Рё РЅСѓР¶РЅС‹Р№ РјР°СЃСЃРёРІ РґР»СЏ СЂРµРЅРґРµСЂРёРЅРіР°
+		//glDrawArrays(GL_TRIANGLES, 0, 6); //РѕС‚СЂРёСЃРѕРІР°Р»Рё
 
-		//для отрисовки с EBO ипользуется glDrawElements
+		//РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЃ EBO РёРїРѕР»СЊР·СѓРµС‚СЃСЏ glDrawElements
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		window.display();
