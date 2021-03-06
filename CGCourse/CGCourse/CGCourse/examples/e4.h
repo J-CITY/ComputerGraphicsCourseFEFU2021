@@ -147,6 +147,10 @@ static int e4() {
 		// обработка ивентов от SFML (тут и мышь и клавиши обрабатываются)
 		sf::Event windowEvent;
 		while (window.pollEvent(windowEvent)) { // обработка ивентов
+
+			<YOUR CODE>
+			//обработка клавиш и обновление позиции камеры
+			//обработка мыши и обновления повотора камеры например с помошью углов эйлера
 			switch (windowEvent.type) {
 			case sf::Event::Closed:
 				isGo = false;
