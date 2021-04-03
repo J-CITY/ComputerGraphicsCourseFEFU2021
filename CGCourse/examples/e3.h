@@ -31,8 +31,8 @@ static int e3() {
 		return -1;
 	}
 
-	auto shaderProgram = LoadShaders("res/shaders/e2.vs", "res/shaders/e2.fs");
-	
+	auto shaderProgram = LoadShaders("../res/shaders/e2.vs", "../res/shaders/e2.fs");
+
 
 	float vertices [] = {
 		//x      y     z      u     v
@@ -94,7 +94,7 @@ static int e3() {
 	 */
 	stbi_set_flip_vertically_on_load(true);
 
-	unsigned char* data = stbi_load("res/imgs/1.jpg", &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load("../res/imgs/1.jpg", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -103,8 +103,8 @@ static int e3() {
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
-	
-	// цыкл рендера
+
+	// цикл рендера
 	bool isGo = true;
 	while (isGo) {
 
@@ -124,7 +124,7 @@ static int e3() {
 		glClear(GL_COLOR_BUFFER_BIT);                      //отчистка экрана
 
 		glBindTexture(GL_TEXTURE_2D, texture); //связали текстуру
-		
+
 		glUseProgram(shaderProgram); // установили нужную шейдерную программу
 		glBindVertexArray(VAO);      // установили нужный массив для рендеринга
 		//glDrawArrays(GL_TRIANGLES, 0, 6); //отрисовали
