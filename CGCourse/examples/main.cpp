@@ -6,15 +6,14 @@
 //sfml
 #include <SFML/Window.hpp>
 
-
-#include "examples/e1.h"
-#include "examples/e2.h"
-#include "examples/e3.h"
+// #include "e1.h"
+#include "e2.h"
+// #include "e3.h"
 
 using namespace std;
 
 int main() {
-	return e3();
+	return e2();
 }
 
 
@@ -169,25 +168,25 @@ int main() {
 	//window.resetGLStates();
 	//window.pushGLStates();
 
-	
-	
+
+
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	//glBindVertexArray(VertexArrayID);
 
 	GLuint programID = LoadShaders("shader.vs", "shader.fs");
-	
+
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f, -1.0f, 0.0f,
 		 1.0f, -1.0f, 0.0f,
 		 0.0f,  1.0f, 0.0f,
 	};
-	
+
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-	
+
 
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
@@ -210,7 +209,7 @@ int main() {
 				break;
 			}
 		}
-		
+
 
 
 		ImGui::SFML::Update(window, deltaClock.restart());
@@ -231,21 +230,21 @@ int main() {
 
 		if (ImGui::Button("Update window title")) {
 			// этот код выполняется, когда юзер жмёт на кнопку
-			// здесь можно было бы написать 
+			// здесь можно было бы написать
 			// if(ImGui::InputText(...))
 			window.setTitle("!!!!!!");
 		}
 		ImGui::End(); // end window
-		
+
 		//..............................................
 		//window.clear();
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		
+
 		//ImGui::SFML::Render(window);
 		//window.pushGLStates();
-		
+
 		// Use our shader
 		glUseProgram(programID);
 
@@ -265,15 +264,15 @@ int main() {
 		);
 
 
-	
+
 		// Draw the triangle !
 		glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
 		glBindVertexArray(0);
 
 		glDisableVertexAttribArray(0);
-		
+
 		glUseProgram(0);
-		
+
 
 		window.pushGLStates();
 		ImGui::SFML::Render(window);
@@ -359,7 +358,7 @@ void computeMatricesFromInputs() {
 		sin(verticalAngle),
 		cos(verticalAngle) * cos(horizontalAngle)
 	);
-	
+
 	// Right vector
 	glm::vec3 right = glm::vec3(
 		sin(horizontalAngle - 3.14f / 2.0f),
@@ -462,7 +461,7 @@ int main() {
 	auto _Projection = Mathgl::perspective(Mathgl::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 	cout << "my  \n" << _Projection << endl;
 	printM(Projection);
-	
+
 	// Camera matrix
 	auto View = glm::lookAt(
 		vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
@@ -482,7 +481,7 @@ int main() {
 
 	cout << "my\n" << _Model << endl;
 	printM(Model);
-	
+
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	//auto MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 	auto MVP = _Projection * _View * _Model; // Remember, matrix multiplication is the other way around
@@ -606,12 +605,12 @@ int main() {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 				key = Key::R;
-			} 
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
 				key = Key::U;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 				key = Key::D;
 			}
 			if (windowEvent.type == sf::Event::MouseMoved) {
@@ -635,7 +634,7 @@ int main() {
 		// Use our shader
 		glUseProgram(programID);
 
-		// Send our transformation to the currently bound shader, 
+		// Send our transformation to the currently bound shader,
 		// in the "MVP" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
