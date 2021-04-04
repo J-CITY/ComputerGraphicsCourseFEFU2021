@@ -1,5 +1,6 @@
 
-CGCourse/CGCourse/.vs/
-CGCourse/CGCourse/CGCourse/Debug/
-CGCourse/CGCourse/CGCourse/x64/
-CGCourse/CGCourse/x64/
+CGCourse/.vs/
+CGCourse/Debug/
+CGCourse/x64/
+CGCourse/x64/
+CGCourse/imgui.ini
