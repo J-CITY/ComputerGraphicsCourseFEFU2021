@@ -43,8 +43,8 @@ Cкачайте библиотеку GLEW (Binaries) http://glew.sourceforge.net
 
 ### 8
 
-Скопировать YOUR_LIB_PATH/glew/bin/x64/glew32.dll --> PROJECT_PATH
-Скопировать YOUR_LIB_PATH/SFML/bin/{sfml-graphics.dll, sfml-system.dll, sfml-window.dll} --> PROJECT_PATH
+Скопировать YOUR_LIB_PATH/glew/bin/x64/glew32.dll --> PROJECT_PATH/PROJECT_NAME
+Скопировать YOUR_LIB_PATH/SFML/bin/{sfml-graphics.dll, sfml-system.dll, sfml-window.dll} --> PROJECT_PATH/PROJECT_NAME
 
 PS: Убедитесь что разрядность проекта и библиотек совпадает!!!
 
